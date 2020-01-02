@@ -59,12 +59,13 @@
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="#F7F7F7" TargetName="border"/>
+                            <Setter Property="Foreground" Value="Red"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="true">
-                            <Setter Property="Foreground"  Value="Green"/>
+                            <Setter Property="Foreground"  Value="Red"/>
                             <Setter Property="BorderThickness" Value="4 0 0 0" TargetName="bd2"/>
-                            <Setter Property="BorderBrush" Value="Green" TargetName="bd2"/>
-                            <Setter Property="Background" Value="Green" TargetName="border"/>
+                            <Setter Property="BorderBrush" Value="Red" TargetName="bd2"/>
+                            <Setter Property="Background" Value="Red" TargetName="border"/>
                             <Setter Property="Opacity" Value="0.05" TargetName="border"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="{x:Null}"/>

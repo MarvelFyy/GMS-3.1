@@ -1,14 +1,14 @@
-﻿<Window  x:Class="GreeManagmentSystem.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GreeManagmentSystem"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:FluentWPF="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF" 
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
-        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:local1="clr-namespace:GreeManagmentSystem.Views" x:Name="window" x:Class="GreeManagmentSystem.Views.ShellView"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Title="格力空调管理系统 V2.0 BETA" Height="650" Width="950" 
         WindowStartupLocation="CenterScreen" MouseDown="AcrylicWindow_MouseDown" 
@@ -18,16 +18,19 @@
          >
     <Window.Resources>
 
+        <!--ShakeContent-->
+
+
         <!--Banner-->
         <Storyboard x:Key="ShrinkBanner">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Opacity)" Storyboard.TargetName="Banner">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Banner">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0.6"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
 
         <Storyboard x:Key="EnlargeBanner">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Opacity)" Storyboard.TargetName="Banner">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Banner">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.01" Value="0.6"/>
             </DoubleAnimationUsingKeyFrames>
@@ -35,7 +38,7 @@
 
         <!--Close Menu-->
         <Storyboard x:Key="CloseMenu">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Width)" Storyboard.TargetName="GridMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
                 <EasingDoubleKeyFrame KeyTime="0" Value="176"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.05" Value="40">
                     <EasingDoubleKeyFrame.EasingFunction>
@@ -46,7 +49,7 @@
         </Storyboard>
         <!--Open Menu-->
         <Storyboard x:Key="OpenMenu">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Width)" Storyboard.TargetName="GridMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
                 <EasingDoubleKeyFrame KeyTime="0" Value="40"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.05" Value="176">
                     <EasingDoubleKeyFrame.EasingFunction>
@@ -56,39 +59,21 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
 
-        <!--ShakeContent-->
-
-
         <!--GridMenu-->
         <Storyboard x:Key="ChangeColor">
-            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Background).Color" Storyboard.TargetName="GridMenu">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).Color" Storyboard.TargetName="GridMenu">
                 <EasingColorKeyFrame KeyTime="0" Value="White"/>
                 <EasingColorKeyFrame KeyTime="0:0:0.01" Value="WhiteSmoke"/>
             </ColorAnimationUsingKeyFrames>
         </Storyboard>
 
         <Storyboard x:Key="RestoreColor">
-            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Background).Color" Storyboard.TargetName="GridMenu">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).Color" Storyboard.TargetName="GridMenu">
                 <EasingColorKeyFrame KeyTime="0" Value="WhiteSmoke"/>
                 <EasingColorKeyFrame KeyTime="0:0:0.01" Value="White"/>
             </ColorAnimationUsingKeyFrames>
         </Storyboard>
 
-        <!--TextBlock Style-->
-        <Style TargetType="TextBlock" >
-            <Style.Triggers>
-                <!--鼠标单击-->
-                <EventTrigger RoutedEvent="MouseLeftButtonDown" >
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="FontSize" By="6" AutoReverse="True" Duration="0:0:0.1"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-
-            </Style.Triggers>
-        </Style>
-        <Storyboard x:Key="EnterCloseButton"/>
 
         <!--关闭按钮-->
         <ControlTemplate x:Key="ButtonCloseControlTemplate" TargetType="{x:Type ButtonBase}">
@@ -149,7 +134,57 @@
         </ControlTemplate>
         <Storyboard x:Key="ContentShake"/>
 
+        <!--PackIcon-->
+        <ControlTemplate x:Key="PackIcon" TargetType="{x:Type ButtonBase}">
+            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" Width="40" Height="40">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Rectangle Fill="#FFCB362F" HorizontalAlignment="Left" Height="5" Margin="0" RadiusY="0" RadiusX="0" VerticalAlignment="Top" Width="27.5"/>
+                    <Rectangle Fill="#FFFBE509" HorizontalAlignment="Left" Height="5" RadiusY="0" RadiusX="0" VerticalAlignment="Top" Width="27.5" Margin="0,10,0,0"/>
+                    <Rectangle Fill="#FF4F4FE6" HorizontalAlignment="Left" Height="5" RadiusY="0" RadiusX="0" VerticalAlignment="Top" Width="27.5" Margin="0,20,0,0"/>
+                </Grid>
+
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsDefaulted" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFACACAC"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFE0E0E0"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                </Trigger>
+                <Trigger Property="ToggleButton.IsChecked" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                    <Setter Property="Foreground" Value="#FF838383"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="None"/>
+        </Style>
+
     </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown" SourceName="ButtonClose">
+            <ResumeStoryboard BeginStoryboardName="CloseMenu_BeginStoryboard"/>
+            <ResumeStoryboard BeginStoryboardName="ShrinkBanner_BeginStoryboard"/>
+            <BeginStoryboard x:Name="ShrinkBanner_BeginStoryboard" Storyboard="{StaticResource ShrinkBanner}"/>
+        </EventTrigger>
+    </Window.Triggers>
 
     <!--网格布局-->
 
@@ -164,10 +199,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-
         <!--顶部-->
         <Grid Grid.Row="0" Height="60" Background="#FF5E72C0">
-            
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="1"/>
@@ -178,7 +211,7 @@
                 <Button x:Name="CloseThis" Width="45" Height="30" Content="✕" Foreground="White" BorderThickness="0" Background="Transparent" Click="CloseThis_Click" Template="{DynamicResource ButtonCloseControlTemplate}"/>
             </StackPanel>
             <ProgressBar IsIndeterminate="True" Height="1" VerticalAlignment="Top" Opacity="0.5" Grid.Row="1" Background="Red" />
-            <TextBlock HorizontalAlignment="Center" Height="20" Margin="400,19.2,405,19.8" TextWrapping="Wrap" Text="{}" VerticalAlignment="Center" Width="145"/>
+            <TextBlock  Text="{Binding CenterTitle, ElementName=window}"  HorizontalAlignment="Center" Height="20"  FontSize="16"  TextAlignment="Center" Foreground="White" TextWrapping="Wrap"  VerticalAlignment="Center" Width="145" FontFamily="Arial Black"/>
         </Grid>
 
         <!--左导航栏-->
@@ -189,7 +222,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Grid x:Name="GridMenu" Grid.Column="0" Width="176"  HorizontalAlignment="Left"  Background="White" RenderTransformOrigin="0.5,0.5" Style="{DynamicResource MenuStyle}">
+            <Grid x:Name="GridMenu" Grid.Column="0" Width="176"  HorizontalAlignment="Left"  Background="White" RenderTransformOrigin="0.5,0.5">
                 <!--Menu-->
                 <StackPanel Orientation="Horizontal" >
 
@@ -198,8 +231,8 @@
 
 
                         <StackPanel Orientation="Horizontal">
-                            <Button x:Name="ButtonClose" Style="{x:Null}" Background="Transparent" BorderThickness="0" Click="ButtonClose_Click">
-                                <materialDesign:PackIcon x:Name="packIcon" Kind="HamburgerMenu" Width="40" Height="40"/>
+                            <Button x:Name="ButtonClose" Style="{x:Null}" Background="Transparent" BorderThickness="0" Click="ButtonClose_Click" Template="{DynamicResource PackIcon}" Width="40">
+                                <materialDesign:PackIcon x:Name="packIcon" Kind="HamburgerMenu" Width="40" Height="40" />
                             </Button>
                             <materialDesign:RatingBar VerticalAlignment="Center" Value="4" Foreground="#60CEF4" Margin="5 0 0 0"/>
                         </StackPanel>
@@ -207,8 +240,7 @@
                         <RadioButton  x:Name="Total" Style="{DynamicResource RadioButtonStyle}" Click="Total_Click" >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Buffer"  Width="25" Height="25" Foreground="#B0A8A7" Margin="5" VerticalAlignment="Center"/>
-
-                                <TextBlock x:Name="textBlock" Text="仓储总览" Margin="10" FontSize="20" FontFamily="Arial" VerticalAlignment="Center" 
+                                <TextBlock  Text="仓储总览" Margin="10" FontSize="20" FontFamily="Arial Black" VerticalAlignment="Center" 
                                    Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type RadioButton}}}" />
                             </StackPanel>
                         </RadioButton>
@@ -216,7 +248,7 @@
                         <RadioButton x:Name="Order" Style="{DynamicResource RadioButtonStyle}" Click="Order_Click">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="LorryCheck" Width="25" Height="25" Foreground="#FFF08033" Margin="5" VerticalAlignment="Center"/>
-                                <TextBlock  Text="订货中心" Margin="10" FontSize="20" FontFamily="Arial" VerticalAlignment="Center"
+                                <TextBlock  Text="订货中心" Margin="10" FontSize="20" FontFamily="Arial Black" VerticalAlignment="Center" 
                                    Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type RadioButton}}}" />
                             </StackPanel>
                         </RadioButton>
@@ -224,7 +256,7 @@
                         <RadioButton x:Name="Stock" Style="{DynamicResource RadioButtonStyle}" Click="Stock_Click" >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="BarcodeScanner" Width="25" Height="25" Foreground="Green" Margin="5" VerticalAlignment="Center"/>
-                                <TextBlock  Text="库存管理" Margin="10" FontSize="20" FontFamily="Arial" VerticalAlignment="Center"
+                                <TextBlock  Text="库存管理" Margin="10" FontSize="20" FontFamily="Arial Black" VerticalAlignment="Center" 
                                    Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type RadioButton}}}" />
                             </StackPanel>
                         </RadioButton>
@@ -232,7 +264,7 @@
                         <RadioButton x:Name="Sale" Style="{DynamicResource RadioButtonStyle}" Click="Sale_Click">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Shopping" Width="25" Height="25" Foreground="#FFD41515" Margin="5" VerticalAlignment="Center"/>
-                                <TextBlock  Text="销售订单" Margin="10" FontSize="20" FontFamily="Arial" VerticalAlignment="Center"
+                                <TextBlock  Text="销售订单" Margin="10" FontSize="20" FontFamily="Arial Black" VerticalAlignment="Center"
                                    Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type RadioButton}}}" />
                             </StackPanel>
                         </RadioButton>
@@ -240,7 +272,7 @@
                         <RadioButton x:Name="Install" Style="{DynamicResource RadioButtonStyle}" Click="Install_Click">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Worker" Width="25" Height="25" Foreground="#FF0069C1" Margin="5" VerticalAlignment="Center"/>
-                                <TextBlock  Text="售后服务" Margin="10" FontSize="20" FontFamily="Arial" VerticalAlignment="Center"
+                                <TextBlock  Text="售后服务" Margin="10" FontSize="20" FontFamily="Arial Black" VerticalAlignment="Center"
                                    Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type RadioButton}}}" />
                             </StackPanel>
                         </RadioButton>
@@ -250,12 +282,10 @@
                 </StackPanel>
 
             </Grid>
-            
 
             <Grid Grid.Column="1" Grid.Row="1" x:Name="WindowRight">
                 <!-- mainFrame区域 -->
                 <Frame x:Name="mainFrame"  NavigationUIVisibility="Hidden" Source="\User\Pages\Total.xaml" />
-               
             </Grid>
 
         </Grid>

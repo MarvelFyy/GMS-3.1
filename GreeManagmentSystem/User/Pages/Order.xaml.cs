@@ -5,7 +5,7 @@ using GreeManagmentSystem.User.InputInfo;
 using GreeManagmentSystem.User.Preview;
 
 
-namespace GreeManagmentSystem.User.Pages
+namespace GreeManagmentSystem.User.Preview
 {
     /// <summary>
     /// Interaction logic for Order.xaml
